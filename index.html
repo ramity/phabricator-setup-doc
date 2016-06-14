@@ -1,0 +1,199 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>Phabricator Set Up - Documenation</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,800italic,700italic,600italic,400italic,300italic' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+  </head>
+  <body>
+    <div id="top">
+      <div id="topinr">
+        <a href="/">Phabricator Set Up - Documenation</a>
+      </div>
+    </div>
+    <div id="content">
+      <div id="contentinr">
+        <div id="navholder">
+          <div id="nav">
+            <div class="navitem" style="border-left-color:#2abb67;background-color:#2ecc71;color:#fff;margin-bottom:20px;">Navigation Menu</div>
+            <a href="#1">
+              <div class="navitem">REQ</div>
+            </a>
+            <a href="#2">
+              <div class="navitem">Keypair</div>
+            </a>
+            <a href="#3">
+              <div class="navitem">SSH Keys</div>
+            </a>
+            <a href="#4">
+              <div class="navitem">- Debugging</div>
+            </a>
+            <a href="#5">
+              <div class="navitem">Arcanist</div>
+            </a>
+          </div>
+        </div>
+        <div id="documenation">
+          <div class="header">Required materials/knowledge<a id="1" class="anchor"></a></div>
+           <ul>
+            <li><a href="https://git-for-windows.github.io/">GitBash</a></li>
+            <li>Knowledge of setting system PATH variables
+              <ul>
+                <li>"This should be common knowledge for most developers, but computerhope.com provides a well written piece of documentation that could be useful for those less familiar with the process: <a href="http://www.computerhope.com/issues/ch000549.htm">http://www.Computerhope.com/issues/ch000549.htm</a>"</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="header">Acquiring keypair<a id="2" class="anchor"></a></div>
+          <ol>
+            <li>Log into Phabricator</li>
+            <li>Click on the crossed wrench and screwdriver in the upper right hand corner (settings).</li>
+            <li>Under Authentication, click SSH Public Keys.</li>
+            <li>Click the "generate keypair" button to generate your public key.</li>
+            <li>Click the download Private Key button to begin the download for your key.</li>
+              <ul>
+                <li>You should begin downloading a file named closely to (if not the same) id_rsa_phabricator.KEY. For purposes of this documentation, this file will be here on referred to as id_rsa_phabricator.KEY</li>
+                <li>Now verify your .KEY file is in your downloads folder by:</li>
+                <ul>
+                  <li>Navigating to your downloads folder</li>
+                  <li class="hidden bold">OR</li>
+                  <li>Typing in the following command into CMD:</li>
+                  <li class="hidden"><code>start explorer C:\Users\Your_Username_Here\Downloads\</code></li>
+                </ul>
+              </ul>
+          </ol>
+          <div class="header">Setting up .SSH keys<a id="3" class="anchor"></a></div>
+          <ol>
+            <li>Open Git Bash terminal and enable your ssh-agent by entering the following command:</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>eval "$(ssh-agent -s)"</code>
+                </li>
+              </ul>
+            </div>
+            <li>You should get a response similar to:</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>Agent pid ####</code>
+                </li>
+              </ul>
+            </div>
+            <li>Now that ssh-agent is verified to be running let's move that KEY file over to your .ssh directory for safe keeping and utilization by entering the following command into your GitBash terminal:</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>mv ~/Downloads/id_rsa_phabricator.KEY ~/.ssh/</code>
+                </li>
+              </ul>
+            </div>
+            <li>Now add that .KEY file to your GitBash terminal. Add the identity by entering the following command:</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>ssh-add ~/.ssh/id_rsa_phabricator.KEY</code>
+                </li>
+                <li class="hidden">An expected response should begin with:</li>
+                <li class="hidden">
+                  <code>Identity added: ...</code>
+                </li>
+              </ul>
+            </div>
+            <li>Now all the SSH keys are configured, let's move onto getting that git repo clone setup.</li>
+            <li>Navigate to the repo of your choice by going to your browser and navigating to phabricator Home>Diffusion> clicking on the repo and then by copying the provided Clone (SSH) url.</li>
+            <li>Bring GitBash back up and navigate to the location where you wish to clone this repo. For demonstration purposes, here's an example location</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>cd C:/projects/clones/</code>
+                </li>
+              </ul>
+            </div>
+            <li>With your ssh keys all set up, simply paste the command you previously copied and paste it into your active GitBash terminal. Your current environment should be authorized to clone the application.</li>
+          </ol>
+          <div class="header">Debugging<a id="4" class="anchor"></a></div>
+          <ul>
+            <li>If any issues arise during the cloning process, close out GitBash and create a new window in which you navigate to your desired directory and attempt the cloning process again.</li>
+            <ul>
+              <li>If you continue getting errors, you may not have set up your SSH key correctly.</li>
+            </ul>
+          </ul>
+          <div class="header">Setting up Arcanist<a id="5" class="anchor"></a></div>
+          <ol>
+            <li>Type and run the following commands into your GitBash terminal to install arcanist and its dependencies into your Program Files directory.</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>cd C:/Program\ Files/</code>
+                </li>
+                <li class="hidden">
+                  <code>git clone https://github.com/phacility/libphutil.git</code>
+                </li>
+                <li class="hidden">
+                  <code>git clone https://github.com/phacility/arcanist.git</code>
+                </li>
+              </ul>
+            </div>
+            <li>Add C:\Program Files\arcanist\bin; to system PATH variable</li>
+            <div>
+              <ul>
+                <li>This documentation will not cover the procedures, but provided a link for reference in the REQ section if needed.</li>
+              </ul>
+            </div>
+            <li>Restart GitBash and verify that the PATH variable was properly applied by running:</li>
+            <div>
+              <ul>
+                <li class="hidden">
+                  <code>arc -help</code>
+                </li>
+                <li>If the terminal outputs a help menu, the PATH variable was properly applied</li>
+                <li>If the terminal does not output a help menu, the PATH variable was not properly applied. Verify that the PATH variable is in the system variables and NOT the user variables.</li>
+              </ul>
+            </div>
+            <li>Almost finished with configuration. Open up your editor of choice and create a new file named .arcconfig in the git repo you previously cloned.</li>
+            <li>Edit the file by copy and pasting the following contents:</li>
+            <div>
+              <ul>
+                <li class="hidden"><code>{</code>
+                <li class="hidden"><code>"phabricator.uri" : "http://gituser@fortytwo.ddns.uark.edu/diffusion/S/cttp-symfony-application.git",</code></li>
+                <li class="hidden"><code>"project.name" : "CTTP Backend Migration",</code></li>
+                <li class="hidden"><code>"phpunit_config": "phpunit.xml.dist"</code></li>
+                <li class="hidden"><code>"unit.engine" : "PhpunitTestEngine",</code></li>
+                <li class="hidden"><code>}</code></li>
+              </ul>
+            </div>
+            <li>Save the file and open up your GitBash terminal and test arcanist with one of the following commands:</li>
+            <div>
+              <ul>
+                <li class="hidden"><code>echo {} | ssh gituser@fortytwo.ddns.uark.edu conduit conduit.ping</code></li>
+                <li class="hidden">Desired output:</li>
+                <li class="hidden"><code>{"result":"fortytwo","error_code":null,"error_info":null}</code></li>
+                <li class="hidden">OR</li>
+                <li class="hidden"><code>ssh -T gituser@fortytwo.ddns.uark.edu</code></li>
+                <li class="hidden">Desired output:</li>
+                <li class="hidden"><code>"phabricator-ssh-exec: Welcome to Phabricator.</code></li>
+                <li class="hidden"><code>You are logged in as YOUR_USERNAME.</code></li>
+                <li class="hidden"><code>You haven't specified a command to run. This means you're requesting an interactive shell, but Phabricator does not provide an interactive shell over SSH.Usually, you should run a command like `git clone` or `hg push` rather than connecting directly with SSH. Supported commands are: conduit, git-receive-pack, git-upload-pack, hg, svnserve."</code></li>
+              </ul>
+            </div>
+            <li>Lastly, install a certificate for Arc by running the following command:</li>
+            <div>
+              <ul>
+                <li class="hidden"><code>arc install-certificate</code></li>
+                <li>If GitBash does not recognize the command, the PATH variable has not been set up correctly.</li>
+              </ul>
+            </div>
+            <li>For the purposes of debugging the error any errors with using arc, attempt to install the certificate with the following</li>
+            <div>
+              <ul>
+                <li class="hidden"><code>arc install-certificate --trace</code></li>
+                <li>If GitBash does recognize the command and the installation has been successful, you will be prompted to login to phabricator and follow a given a url to copy and paste back into the GitBash terminal.</li>
+              </ul>
+            </div>
+            <li>If you are prompted with SUCCESS! Congratulations! You have successfully installed your dev environment and are prepared to utilize Phabricator via your newly set up development environment.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
